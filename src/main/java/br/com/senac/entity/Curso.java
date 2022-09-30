@@ -2,10 +2,12 @@ package br.com.senac.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Curso implements Serializable{
@@ -16,7 +18,18 @@ public class Curso implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	public Professor getProfessor() {
+		return professor;
+	}
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
+	}
+	@Column
 	private String nome;
+	
+	@OneToOne
+	private Professor professor;
 	
 	public Integer getId() {
 		return id;

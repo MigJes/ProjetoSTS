@@ -26,6 +26,15 @@
 					<label>Nome</label>
 					<input type ="text" class= "form-control input-sm" th:field = "*{nome}"placeholder="Informe o nome" maxlenght="50"/>
 				</div>
+				
+				<div class = "form-grop row">
+					<label>Professores</label>
+					<select class="form-control" th:field="*{professor}">
+						<option value="">Selecione um professor</option>
+						<option th:each="proff : ${professores}" th:value="${proff.id}" th:text="${proff.nome}"></option>
+					
+					</select>
+				</div>
 			
 			</fieldset>
 			<div align ="center">

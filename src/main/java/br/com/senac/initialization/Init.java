@@ -12,6 +12,7 @@ import br.com.senac.entity.Aluno;
 import br.com.senac.entity.Curso;
 import br.com.senac.entity.Professor;
 import br.com.senac.entity.Turma;
+import br.com.senac.repository.ProfessorRepository;
 //import br.com.senac.repository.AlunoRepository;
 import br.com.senac.service.AlunoService;
 import br.com.senac.service.CursoService;
@@ -28,6 +29,10 @@ public class Init implements ApplicationListener<ContextRefreshedEvent>{
 	CursoService cursoService;
 	@Autowired
 	TurmaService turmaService;
+	
+	
+	@Autowired
+	ProfessorRepository professorRepository;
 	
 	//@Autowired
 	//AlunoRepository repo;
@@ -122,6 +127,8 @@ public class Init implements ApplicationListener<ContextRefreshedEvent>{
 		curso1.setNome("Programacao web 1");
 		Curso curso2 = new Curso();
 		curso2.setNome("Testes");
+		Curso curso3 = new Curso();
+		curso3.setNome("Lógica");
 		
 		cursoService.insert(curso1);
 		cursoService.insert(curso2);
@@ -195,5 +202,40 @@ public class Init implements ApplicationListener<ContextRefreshedEvent>{
 		System.out.println(turmaService.select(turmaAlterada.getId()).getNome());
 		
 		System.out.println("-----------------------------");
+		
+		
+		
+		
+		Professor p1 = new Professor();
+		//p1.setId(1);
+		p1.setNome("Lucas");
+		
+		Professor p2 = new Professor();
+		//p2.setId(2);
+		p2.setNome("Joao");
+		
+		
+		Professor p3 = new Professor();
+		p3.setNome("Caio");
+		
+		professorService.insert(p1);
+		professorService.insert(p2);
+		professorService.insert(p3);
+		
+		curso1.setProfessor(p1);
+		curso2.setProfessor(p2);
+		curso3.setProfessor(p3);
+		
+		cursoService.insert(curso1);
+		cursoService.insert(curso2);
+		cursoService.insert(curso3);
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 }
