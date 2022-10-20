@@ -8,46 +8,68 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-
 import br.com.senac.entity.Turma;
+import br.com.senac.service.CursoService;
 import br.com.senac.service.TurmaService;
 
 @Controller
-@RequestMapping("turma")
+@RequestMapping("turma")//http://localhost:8080/turma
 public class TurmaController {
+	
 	@Autowired
 	private TurmaService turmaService;
-	@GetMapping("/listarTurmas")
-	public ModelAndView listaTodasTurmas() {
+	
+	@Autowired 
+	private CursoService cursoService;
+	
+	@GetMapping("/listarTurmas")//http://localhost:8080/turma/listarTurmas
+	public ModelAndView listarTodasTurmas() {
 		ModelAndView mv = new ModelAndView("turma/paginaListaTurmas");
-		mv.addObject("turmas", turmaService.selectAll());
+		mv.addObject("turmas", turmaService.buscarTodasTurmas());
 		return mv;
 	}
 	
 	@GetMapping("/cadastrarTurma")
 	public ModelAndView cadastrarTurma() {
 		ModelAndView mv = new ModelAndView("turma/cadastrarTurma");
-		mv.addObject("turmanova",new Turma());
+		mv.addObject("turma", new Turma());
+		mv.addObject("listaCursos", cursoService.buscarTodos());
 		return mv;
 	}
 	
 	@PostMapping("/salvar")
-	public ModelAndView salvarTurma(Turma turma) {
-		turmaService.insert(turma);
-		return listaTodasTurmas();
+	public ModelAndView salvarCurso(Turma turma) {
+		turmaService.salvar(turma);
+		return listarTodasTurmas();
 	}
 	
-	@GetMapping("/excluir/{idX}")
-	public ModelAndView excluirTurma(@PathVariable ("idX")Integer id) {
-		turmaService.delete(id);
-		return listaTodasTurmas();
-		
+	@GetMapping("/excluir/{id}")
+	public ModelAndView excluirTurma(@PathVariable("id") Integer id) {
+		turmaService.deletarPorId(id);
+		return listarTodasTurmas();
 	}
 	
 	@GetMapping("/paginaAlterar/{id}")
-	public ModelAndView alterarTurma(@PathVariable("id")Integer id) {
+	public ModelAndView alterarTurma(@PathVariable("id") Integer id) {
 		ModelAndView mv = new ModelAndView("turma/alterarTurma");
-		mv.addObject("turma",turmaService.select(id));
+		mv.addObject("turma", turmaService.buscarPorId(id));
 		return mv;
 	}
+	
+	@PostMapping("/salvarAlteracao")
+	public ModelAndView alterar(Turma turmaAlterado) {
+		turmaService.salvarAlteracao(turmaAlterado);
+		return listarTodasTurmas();
+	}
+	
+	
+	//Meu metodo de excluir
+	//@GetMapping("/excluir/{id}")
+	//public String excluirCurso(@PathVariable("id") Integer id) {
+		//turmaService.deletarPorId(id);
+		//return "redirect:/turma/listarTurmas";
+	//}
+	
+	
+	
 }
