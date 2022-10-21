@@ -1,5 +1,7 @@
 package br.com.senac.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,8 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Curso {
+public class Curso implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9071275152777913706L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
