@@ -49,4 +49,22 @@ public class AlunoService {
 		return salvar(aluno);
 	}
 	
+	public Aluno buscaPorNome(String nome) {
+		Aluno aluno = alunoRepository.findByNome(nome);
+		return aluno;
+	}
+	
+	public List<Aluno> buscaAlunoComEndereco(){
+		List<Aluno> lista = alunoRepository.buscarAlunoComEndereco();
+		return lista;
+				
+	}
+	
+	public List<Aluno> buscaAlunoPeloNomeComEndereco(String nome){
+		List<Aluno> lista = alunoRepository.buscaAlunoPeloNome(nome);
+		
+		return lista;
+		
+	}
+	
 }

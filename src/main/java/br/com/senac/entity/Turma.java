@@ -5,12 +5,17 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 public class Turma implements Serializable{
@@ -24,6 +29,14 @@ public class Turma implements Serializable{
 	@Column
 	private String nome;
 	
+	public List<Aluno> getAlunos() {
+		return alunos;
+	}
+
+	public void setAlunos(List<Aluno> alunos) {
+		this.alunos = alunos;
+	}
+
 	@ManyToMany
 	@JoinTable(
 			name = "turma_curso", 
@@ -31,6 +44,10 @@ public class Turma implements Serializable{
 			inverseJoinColumns = { @JoinColumn(name = "curso_id")} 
 	)
 	private List<Curso> cursos;
+	
+	@OneToMany(mappedBy = "turma")
+	@Fetch(value = FetchMode.JOIN)
+	private List<Aluno> alunos;
 
 	public Integer getId() {
 		return id;
