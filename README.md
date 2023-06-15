@@ -1,2 +1,0 @@
-# ProjetoSTS
-teste teste teste
