@@ -1,3 +1,0 @@
-# ProjetoSTS
-TESTE TESTE TESTE
-
